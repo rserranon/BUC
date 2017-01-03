@@ -153,7 +153,7 @@ public class BUC {
 		}
 		
 		cubeRegions.add(join(region, ","));
-		//System.out.println(join(region, ","));
+		System.out.println("Region: "+ join(region, ","));
 	}
 	
 	public void addGroup(List<Integer> mask, String record, int measure){
@@ -172,7 +172,7 @@ public class BUC {
 		String key = join(region, ",");
 		if (!cubeGroups.containsKey(key))
 			cubeGroups.put(key, measure);
-		//System.out.println(join(region, ",") + " " + measure);
+		//System.out.println("Group Added ->" + join(region, ",") + " " + measure);
 	}
 	
 	public void processCubeRegions(int mainOrigin, int origin, int dim, List<Integer> mask){
@@ -210,7 +210,7 @@ public class BUC {
 		Set<Entry<String, Integer>> entries = cubeGroups.entrySet();
 		
 		for(Entry<String, Integer> entry : entries){
-			System.out.println("(" + entry.getKey() + ") " + entry.getValue());
+			System.out.println("Group: (" + entry.getKey() + ") " + entry.getValue());
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class BUC {
 			return;
 		Iterator<String> itor = cubeRegions.iterator();
 		while(itor.hasNext()){
-			System.out.println(itor.next());
+			System.out.println("Cube Regions: " + itor.next());
 		}
 	}
 	
@@ -235,13 +235,16 @@ public class BUC {
 				partitions.put(key, Integer.parseInt(value));
 			}
 		}
+                System.out.println("Partitions : " + partitions);
 		return partitions;	
 	}
 	
 	static public void main(String[] args){
-		List<String> input = new ArrayList<String>();
+		List<String> input = new ArrayList<>();
+                String workingDir = System.getProperty("user.dir");
+                System.out.println("Current working directory : " + workingDir);
 		try{
-			BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("inputNew.txt"));
 		    String line;
 		    while ((line = br.readLine()) != null) {
 		       input.add(line);
@@ -252,12 +255,14 @@ public class BUC {
 			return;
 		}
 		
-		String[] attributeNames = {"Item", "Color", "Store"}; 
-		BUC buc = new BUC(input.toArray(new String[0]), attributeNames, "Quantity", 3, 0, new InventoryReader());
+		String[] attributeNames = {"A", "B", "C", "D"}; 
+		BUC buc = new BUC(input.toArray(new String[0]), attributeNames, "Q", 4, 0, new InventoryReader());
 		buc.cubeGroups();
+                System.out.println("*** Cube Groups ***");
 		buc.printCubeGroups();
-//		buc = new BUC(null, attributeNames, "Quantity", 3, 0, null);
-//		buc.cubeRegions();
-//		buc.printCubeRegions();
+		buc = new BUC(null, attributeNames, "Q", 4, 0, null);
+		buc.cubeRegions();
+                                System.out.println("*** Cube Regions ***");
+		buc.printCubeRegions();
 	}
 }

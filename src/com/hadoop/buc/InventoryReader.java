@@ -12,14 +12,16 @@ public class InventoryReader implements InputReader{
 	@Override
 	public String getValueByAttributeName(String name) {
 		
-		if (name.equals("Item"))
+		if (name.equals("A"))
 			return sources[0];
-		if (name.equals("Color"))
+		if (name.equals("B"))
 			return sources[1];
-		if (name.equals("Store"))
+		if (name.equals("C"))
 			return sources[2];
-		if (name.equals("Quantity"))
+		if (name.equals("D"))
 			return sources[3];
+                if (name.equals("Q"))
+			return sources[4];
 		
 		return null;
 	}
